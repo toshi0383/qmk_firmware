@@ -2,12 +2,6 @@
 
 extern keymap_config_t keymap_config;
 
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-rgblight_config_t RGB_current_config;
-#endif
-
 extern uint8_t is_master;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -31,7 +25,6 @@ enum custom_keycodes {
   BACKLIT,
   KANA,
   EISU,
-  RGBRST,
   TS_NXT_LNG,
   TS_NXT_WNDW,
   TS_PRV_WNDW,
@@ -71,69 +64,57 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |      |      |      |      |      |             |   -  |   =  |   \  |   [  |   ]  |  |   |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |   +  |   _  |   `  |   {  |   }  |      |
+   * |      |      |      |      | `    |Enter |             |   +  |   _  |   `  |   {  |   }  |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |      |      |      |      |Cmd V |------|             |      |      |      |      |      |      |
    * `-----------------------------------------'             `-----------------------------------------'
    */
   [_LOWER] = LAYOUT_ortho_4x12( \
       KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
       _______, _______, _______, _______, _______, _______,                   KC_MINS, KC_EQUAL, KC_BSLS, KC_LBRC, KC_LBRC, KC_PIPE, \
-      _______, _______, _______, _______, _______, _______,                   KC_PLUS, KC_UNDS, KC_GRV, KC_LCBR, KC_RCBR, KC_PIPE, \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______ \
+      _______, _______, _______, _______,  KC_GRV,  KC_ENT,                   KC_PLUS, KC_UNDS, KC_GRV, KC_LCBR, KC_RCBR, _______, \
+      _______, _______, _______, _______, TS_CMD_V, _______,                  _______, _______, _______, _______, _______, _______ \
       ),
 
   /* Raise
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |      |   1  |   2  |   3  |  4   |   5  |             |   6  |   7  |   8  |   9  |   0  | Del  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |  `   |Enter |             |      |      |      |      |      |      |
+   * |      |      |      |      |      |      |             |      |TS_NW |TS_PW |      | PGUP | Home |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |Cmd V |      |             |      |      |      |      |      |      |
+   * |      |      |      |      |      |      |             | Left | Down | Up   |Right | PGDN | End  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
+   * |      |      |      |      |      |      |             |------|      |      |      |      |      |
    * `-----------------------------------------'             `-----------------------------------------'
    */
   [_RAISE] = LAYOUT_ortho_4x12( \
       _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
-      _______, _______, _______, _______, KC_GRV, KC_ENT,    _______, _______, _______, TS_NXT_WNDW, TS_PRV_WNDW, _______, \
-      _______, _______, _______, _______, TS_CMD_V, _______,    _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, KC_GRV, KC_ENT,    _______, TS_NXT_WNDW, TS_PRV_WNDW, _______, KC_PGUP, KC_HOME, \
+      _______, _______, _______, _______, TS_CMD_V, _______,    KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_PGDN, KC_END, \
+      _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______ \
       ),
 
   /* Adjust (Lower + Raise)
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      | Reset|RGBRST|      |      |      |             |      |      |      |      |      | Ins  |
+   * |      | Reset|      |      |      |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |RGB ON| HUE+ | SAT+ | VAL+ | Mac  |             | Win  |  -   |   =  |Print |ScLock|Pause |
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      | MODE | HUE- | SAT- | VAL- |      |             |      |      |      |      |PageUp|      |
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      | EISU | EISU | EISU |             | KANA | KANA | KANA | Home |PageDn| End  |
+   * |      |      |      |      |      |      |             |      |      |      |      |      |      |
    * `-----------------------------------------'             `-----------------------------------------'
    */
     [_ADJUST] =  LAYOUT_ortho_4x12( \
-      _______, RESET,   RGBRST,  _______, _______, _______,                   _______, _______, _______, _______, _______, KC_INS, \
-      _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, AG_NORM,                   AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SLCK, KC_PAUS,\
-      _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                   _______, _______, _______, _______, KC_PGUP, _______,\
-      _______, _______, _______, EISU,    EISU,    EISU,                      KANA,    KANA,    KANA,    KC_HOME, KC_PGDN, KC_END\
+      _______, RESET,   _______,  _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______,  _______, _______, _______,\
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,\
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______ \
       )
 };
 
 // define variables for reactive RGB
 bool TOG_STATUS = false;
-
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    #ifdef RGBLIGHT_ENABLE
-       rgblight_mode_noeeprom(RGB_current_config.mode);
-    #endif
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -171,19 +152,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
         } else {
           TOG_STATUS = !TOG_STATUS;
-          #ifdef RGBLIGHT_ENABLE
-            rgblight_mode_noeeprom(16);
-          #endif
         }
         layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode_noeeprom(RGB_current_config.mode);   // revert RGB to initial mode prior to RGB mode change
-        #endif
         TOG_STATUS = false;
         layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
@@ -195,19 +168,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
         } else {
           TOG_STATUS = !TOG_STATUS;
-          #ifdef RGBLIGHT_ENABLE
-            rgblight_mode_noeeprom(15);
-          #endif
         }
         layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode_noeeprom(RGB_current_config.mode);  // revert RGB to initial mode prior to RGB mode change
-        #endif
         layer_off(_RAISE);
         TOG_STATUS = false;
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
@@ -220,17 +185,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-      //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
-    case RGB_MOD:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          rgblight_mode_noeeprom(RGB_current_config.mode);
-          rgblight_step();
-          RGB_current_config.mode = rgblight_config.mode;
-        }
-      #endif
-      return false;
-      break;
 
     case EISU:
       if (record->event.pressed) {
@@ -256,24 +210,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-
-    case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          eeconfig_update_rgblight_default();
-          rgblight_enable();
-          RGB_current_config = rgblight_config;
-        }
-      #endif
-      break;
   }
   return true;
-}
-
-
-void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      rgblight_init();
-      RGB_current_config = rgblight_config;
-    #endif
 }
