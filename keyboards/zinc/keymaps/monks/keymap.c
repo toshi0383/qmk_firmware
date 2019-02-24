@@ -138,19 +138,23 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case TS_NXT_LNG:
-      // TODO: Ctl + space
+      // Ctl + space
+      SEND_STRING(SS_LCTRL(" "));
       return false;
       break;
     case TS_NXT_WNDW:
-      // TODO: Cmd + ]
+      // Cmd + ]
+      SEND_STRING(SS_LGUI("]"));
       return false;
       break;
     case TS_PRV_WNDW:
-      // TODO: Cmd + [
+      // Cmd + [
+      SEND_STRING(SS_LGUI("["));
       return false;
       break;
     case TS_CMD_V:
-      // TODO: Cmd + V
+      // Cmd + V
+      SEND_STRING(SS_LGUI("V"));
       return false;
       break;
     case QWERTY:
