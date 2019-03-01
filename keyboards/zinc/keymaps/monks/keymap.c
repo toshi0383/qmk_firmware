@@ -31,7 +31,24 @@ enum custom_keycodes {
   TS_CMD_V,
   TS_CMD_CTL,
   TS_SCMD,
-  TS_ENT_SHIFT
+  TS_CTL_1,
+  TS_CTL_2,
+  TS_CTL_3,
+  TS_CTL_4,
+  TS_CTL_5,
+  TS_CMD_1,
+  TS_CMD_2,
+  TS_CMD_3,
+  TS_CMD_4,
+  TS_CMD_5,
+  TS_CS_LEFT,
+  TS_CS_DOWN,
+  TS_CS_UP,
+  TS_CS_RGHT,
+  TS_AC_3,
+  TS_AC_4,
+  TS_AC_5,
+  TS_AC_6,
 };
 
 enum macro_keycodes {
@@ -49,17 +66,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * | Ctrl |   A  |   S  |   D  |   F  |   G  |             |   H  |   J  |   K  |   L  |   ;  |  '   |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |             |   N  |   M  |   ,  |   .  |   /  |EntSft|
+   * | Shift|   Z  |   X  |   C  |   V  |   B  |             |   N  |   M  |   ,  |   .  |   /  |Shift |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * | Cmd  | Alt  |Ctl _ |CmdCtl| Dele |LOWER |             | RAISE|Space | Tab  |   -  |   +  | SCMD |
+   * | Cmd  | Alt  |Ctl _ |CmdCtl| Dele |Space |             | RAISE|Space | Tab  |      |      | SCMD |
    * `-----------------------------------------'             `-----------------------------------------'
    */
 [_QWERTY] = LAYOUT_ortho_4x12(
-      KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_EQUAL, \
-      KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TS_ENT_SHIFT, \
-      KC_LGUI, KC_LALT, TS_NXT_LNG, TS_CMD_CTL, KC_DEL, LOWER,     RAISE,  KC_SPC, KC_TAB, KC_MINS, KC_PLUS, TS_SCMD \
-      ),
+   KC_ESC,  KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,            KC_Y,  KC_U,  KC_I,    KC_O,   KC_P,    KC_EQUAL, \
+   KC_LCTL, KC_A,  KC_S,  KC_D,  KC_F,  KC_G,            KC_H,  KC_J,  KC_K,    KC_L,   KC_SCLN, KC_QUOT, \
+   KC_LSFT, KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,            KC_N,  KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, \
+   KC_LGUI, KC_LALT, _______, KC_DEL, LOWER, KC_SPC,     KC_ENTER, RAISE,  KC_TAB, _______, _______, TS_SCMD \
+   ),
 
   /* Lower
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -67,35 +84,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |      |      |      |      |      |             |   -  |   =  |   \  |   [  |   ]  |  |   |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      | `    |Enter |             |   +  |   _  |   `  |   {  |   }  |      |
+   * |      |      |      |      |      |      |             |   +  |   _  |   `  |   {  |   }  |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |Cmd V |------|             |      |      |      |      |      |      |
+   * |      |      |      |      |      |------|             |      |      |      |      |      |      |
    * `-----------------------------------------'             `-----------------------------------------'
    */
   [_LOWER] = LAYOUT_ortho_4x12( \
-      KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
-      _______, _______, _______, _______, _______, _______,                   KC_MINS, KC_EQUAL, KC_BSLS, KC_LBRC, KC_LBRC, KC_PIPE, \
-      _______, _______, _______, _______,  KC_GRV,  KC_ENT,                   KC_PLUS, KC_UNDS, KC_GRV, KC_LCBR, KC_RCBR, _______, \
-      _______, _______, _______, _______, TS_CMD_V, _______,                  _______, _______, _______, _______, _______, _______ \
+      KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR,  KC_PERC,     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
+      _______, _______, _______, _______, _______, _______,   KC_MINS, KC_EQUAL, KC_BSLS, KC_LBRC, KC_LBRC, KC_PIPE, \
+      _______, _______, _______, _______, _______, _______,   KC_PLUS, KC_UNDS, KC_GRV, KC_LCBR, KC_RCBR, _______, \
+      _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______, _______ \
       ),
 
   /* Raise
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |      |   1  |   2  |   3  |  4   |   5  |             |   6  |   7  |   8  |   9  |   0  | Del  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |      |TS_NW |TS_PW |      | PGUP | Home |
+   * |      |CTL_1 |CTL_2 |CTL_3 |CTL_4 |CTL_5 |             | Left | Down | Up   |Right | PGUP | Home |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             | Left | Down | Up   |Right | PGDN | End  |
+   * |      |CMD_1 |CMD_2 |CMD_3 |CMD_4 |CMD_5 |             |CSLeft|CSDown| CSUp |CSRigh| PGDN | End  |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      |      |      |      |             |------|      |      |      |      |      |
+   * |AlCm3 |AlCm4 |AlCm5 |AlCm6 |      |      |             |------|      |      |      |      |      |
    * `-----------------------------------------'             `-----------------------------------------'
    */
   [_RAISE] = LAYOUT_ortho_4x12( \
-      _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
-      _______, _______, _______, _______, KC_GRV, KC_ENT,    _______, TS_NXT_WNDW, TS_PRV_WNDW, _______, KC_PGUP, KC_HOME, \
-      _______, _______, _______, _______, TS_CMD_V, _______,    KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_PGDN, KC_END, \
-      _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______ \
-      ),
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
+  _______, TS_CTL_1, TS_CTL_2, TS_CTL_3, TS_CTL_4, TS_CTL_5,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_PGUP, KC_HOME, \
+  _______, TS_CMD_1, TS_CMD_2, TS_CMD_3, TS_CMD_4, TS_CMD_5,   TS_CS_LEFT, TS_CS_DOWN, TS_CS_UP, TS_CS_RGHT, KC_PGDN, KC_END, \
+  TS_AC_3, TS_AC_4, TS_AC_5, TS_AC_6, _______, _______,    _______, _______, _______, _______, _______, _______ \
+  ),
 
   /* Adjust (Lower + Raise)
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -141,11 +158,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LGUI("V"));
       return false;
       break;
-    case TS_ENT_SHIFT:
-      // Shift or Enter
-      MT(MOD_LSFT, KC_ENT);
-      return false;
-      break;
     case TS_SCMD:
       // Shift + Cmd
       if (record->event.pressed) {
@@ -162,6 +174,96 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
           SEND_STRING(SS_UP(X_LGUI) SS_UP(X_LCTRL));
       }
+      return false;
+      break;
+    case TS_CTL_1:
+      // Ctrl + 1
+      SEND_STRING(SS_LCTRL("1"));
+      return false;
+      break;
+    case TS_CTL_2:
+      // Ctrl + 2
+      SEND_STRING(SS_LCTRL("2"));
+      return false;
+      break;
+    case TS_CTL_3:
+      // Ctrl + 3
+      SEND_STRING(SS_LCTRL("3"));
+      return false;
+      break;
+    case TS_CTL_4:
+      // Ctrl + 4
+      SEND_STRING(SS_LCTRL("4"));
+      return false;
+      break;
+    case TS_CTL_5:
+      // Ctrl + 5
+      SEND_STRING(SS_LCTRL("5"));
+      return false;
+      break;
+    case TS_CMD_1:
+      // Cmd + 1
+      SEND_STRING(SS_LGUI("1"));
+      return false;
+      break;
+    case TS_CMD_2:
+      // Cmd + 2
+      SEND_STRING(SS_LGUI("2"));
+      return false;
+      break;
+    case TS_CMD_3:
+      // Cmd + 3
+      SEND_STRING(SS_LGUI("3"));
+      return false;
+      break;
+    case TS_CMD_4:
+      // Cmd + 4
+      SEND_STRING(SS_LGUI("4"));
+      return false;
+      break;
+    case TS_CMD_5:
+      // Cmd + 5
+      SEND_STRING(SS_LGUI("5"));
+      return false;
+      break;
+    case TS_CS_LEFT:
+      // Control + Shift + Left
+      SEND_STRING(SS_LCTRL(SS_LSFT(KC_LEFT)));
+      return false;
+      break;
+    case TS_CS_DOWN:
+      // Control + Shift + Down
+      SEND_STRING(SS_LCTRL(SS_LSFT(KC_DOWN)));
+      return false;
+      break;
+    case TS_CS_UP:
+      // Control + Shift + Up
+      SEND_STRING(SS_LCTRL(SS_LSFT(KC_UP)));
+      return false;
+      break;
+    case TS_CS_RGHT:
+      // Control + Shift + Right
+      SEND_STRING(SS_LCTRL(SS_LSFT(KC_RIGHT)));
+      return false;
+      break;
+    case TS_AC_3:
+      // Control + Alt + 3
+      SEND_STRING(SS_LCTRL(SS_LALT("3")));
+      return false;
+      break;
+    case TS_AC_4:
+      // Control + Alt + 4
+      SEND_STRING(SS_LCTRL(SS_LALT("4")));
+      return false;
+      break;
+    case TS_AC_5:
+      // Control + Alt + 5
+      SEND_STRING(SS_LCTRL(SS_LALT("5")));
+      return false;
+      break;
+    case TS_AC_6:
+      // Control + Alt + 6
+      SEND_STRING(SS_LCTRL(SS_LALT("6")));
       return false;
       break;
     case QWERTY:
