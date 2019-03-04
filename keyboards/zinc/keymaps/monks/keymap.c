@@ -41,10 +41,10 @@ enum custom_keycodes {
   TS_CMD_3,
   TS_CMD_4,
   TS_CMD_5,
-  TS_CS_LEFT,
-  TS_CS_DOWN,
-  TS_CS_UP,
-  TS_CS_RGHT,
+  // TS_CS_LEFT,
+  // TS_CS_DOWN,
+  // TS_CS_UP,
+  // TS_CS_RGHT,
   TS_AC_3,
   TS_AC_4,
   TS_AC_5,
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
   [_RAISE] = LAYOUT_ortho_4x12( \
   _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
   _______, TS_CTL_1, TS_CTL_2, TS_CTL_3, TS_CTL_4, TS_CTL_5,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_PGUP, KC_HOME, \
-  _______, TS_CMD_1, TS_CMD_2, TS_CMD_3, TS_CMD_4, TS_CMD_5,   TS_CS_LEFT, TS_CS_DOWN, TS_CS_UP, TS_CS_RGHT, KC_PGDN, KC_END, \
+  _______, TS_CMD_1, TS_CMD_2, TS_CMD_3, TS_CMD_4, TS_CMD_5,   _______, _______, _______, _______, KC_PGDN, KC_END, \
   TS_AC_3, TS_AC_4, TS_AC_5, TS_AC_6, _______, _______,    _______, _______, _______, _______, _______, _______ \
   ),
 
@@ -226,26 +226,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LGUI("5"));
       return false;
       break;
-    case TS_CS_LEFT:
-      // Control + Shift + Left
-      SEND_STRING(SS_LCTRL(SS_LSFT(KC_LEFT)));
-      return false;
-      break;
-    case TS_CS_DOWN:
-      // Control + Shift + Down
-      SEND_STRING(SS_LCTRL(SS_LSFT(KC_DOWN)));
-      return false;
-      break;
-    case TS_CS_UP:
-      // Control + Shift + Up
-      SEND_STRING(SS_LCTRL(SS_LSFT(KC_UP)));
-      return false;
-      break;
-    case TS_CS_RGHT:
-      // Control + Shift + Right
-      SEND_STRING(SS_LCTRL(SS_LSFT(KC_RIGHT)));
-      return false;
-      break;
+//    case TS_CS_LEFT:
+//      // Control + Shift + Left
+//      SEND_STRING(SS_LCTRL(SS_LSFT(KC_LEFT)));
+//      return false;
+//      break;
+//    case TS_CS_DOWN:
+//      // Control + Shift + Down
+//      SEND_STRING(SS_LCTRL(SS_LSFT(KC_DOWN)));
+//      return false;
+//      break;
+//    case TS_CS_UP:
+//      // Control + Shift + Up
+//      SEND_STRING(SS_LCTRL(SS_LSFT(KC_UP)));
+//      return false;
+//      break;
+//    case TS_CS_RGHT:
+//      // Control + Shift + Right
+//      SEND_STRING(SS_LCTRL(SS_LSFT(KC_RIGHT)));
+//      return false;
+//      break;
     case TS_AC_3:
       // Control + Alt + 3
       SEND_STRING(SS_LCTRL(SS_LALT("3")));
